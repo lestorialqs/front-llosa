@@ -2,7 +2,20 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-const groups = [
+/* Explicit types — badge is optional ────────────────── */
+type NavItem = {
+  href: string;
+  icon: string;
+  label: string;
+  badge?: string; // ← optional: only "Tracking" has one
+};
+
+type NavGroup = {
+  label: string;
+  items: NavItem[];
+};
+
+const groups: NavGroup[] = [
   {
     label: "Main",
     items: [
