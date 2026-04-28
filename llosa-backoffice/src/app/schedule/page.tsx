@@ -1,6 +1,22 @@
 import AdminLayout from "@/components/AdminLayout";
 
-const calDays = [
+/* Explicit type: both icon and dot are optional ──────── */
+type CalEvent = {
+  label: string;
+  bg: string;
+  text: string;
+  icon?: string;   // Material Symbols icon name (takes priority over dot)
+  dot?: string;    // Tailwind color class for the indicator dot
+};
+
+type CalDay = {
+  day: number;
+  grey?: boolean;
+  today?: boolean;
+  events: CalEvent[];
+};
+
+const calDays: CalDay[] = [
   {day:30,grey:true,events:[]},
   {day:1,events:[]},
   {day:2,events:[{label:"Client Meeting - Torres",bg:"bg-[#c2e8ff]",dot:"bg-[#001e2b]",text:"text-[#001e2b]"}]},
