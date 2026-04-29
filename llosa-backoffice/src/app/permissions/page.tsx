@@ -41,7 +41,7 @@ const INITIAL: RolePerms = {
 function Toggle({ on, onChange }: { on: boolean; onChange: () => void }) {
   return (
     <button onClick={onChange} className={`w-8 h-4 rounded-full relative transition-colors duration-200 ${on ? "bg-[#023143]" : "bg-[#c1c7cc]"}`}>
-      <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform duration-200 ${on ? "translate-x-[18px]" : "translate-x-0.5"}`} />
+      <span className={`absolute top-[2px] left-[2px] w-3 h-3 rounded-full bg-white shadow transition-transform duration-200 ${on ? "translate-x-[16px]" : "translate-x-0"}`} />
     </button>
   );
 }
