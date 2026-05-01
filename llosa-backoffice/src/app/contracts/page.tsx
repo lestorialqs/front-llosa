@@ -25,16 +25,29 @@ export default function ContractsPage() {
       {/* Page Header */}
       <div className="flex justify-between items-end mb-4">
         <div>
-          <h1 className="text-[36px] leading-[44px] font-bold tracking-[-0.02em] text-[#001b27]">Seguimiento de Contratos</h1>
-          <p className="text-base text-[#41484c] mt-2">Administra y realiza seguimiento al ciclo de vida de contratos inmobiliarios.</p>
+          <h1 className="text-[36px] leading-[44px] font-bold tracking-[-0.02em] text-[#001b27]">Contratos por Cliente y Proyecto</h1>
+          <p className="text-base text-[#41484c] mt-2">No se suben contratos aquí. Filtra cliente, proyecto, etapa e hito para gestionar contratos específicos.</p>
         </div>
         <div className="flex gap-4">
           <button className="px-4 py-2 rounded border border-[#E5E7EB] bg-white text-[#1a1c1d] text-xs font-semibold hover:bg-[#f4f3f5] transition-colors flex items-center gap-2">
             <span className="material-symbols-outlined text-[18px]">filter_list</span>Filtrar
           </button>
           <button className="px-4 py-2 rounded bg-[#023143] text-white text-xs font-semibold hover:bg-[#001b27] transition-colors flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">add</span>Nuevo Contrato
+            <span className="material-symbols-outlined text-[18px]">account_tree</span>Ir a Etapa Específica
           </button>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl border border-[#E5E7EB] p-4 shadow-[0_4px_20px_rgba(2,49,67,0.05)] mb-4">
+        <div className="grid grid-cols-4 gap-3">
+          {["Cliente", "Proyecto", "Etapa", "Hito"].map((label) => (
+            <div key={label}>
+              <label className="text-[11px] font-bold text-[#72787c] uppercase tracking-wider block mb-1">{label}</label>
+              <select className="w-full border border-[#E5E7EB] rounded-lg px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-[#023143]">
+                <option>Seleccionar {label.toLowerCase()}...</option>
+              </select>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -91,9 +104,6 @@ export default function ContractsPage() {
             <div className="mt-8 pt-6 border-t border-[#E5E7EB] flex gap-4">
               <button className="px-6 py-2 rounded bg-[#023143] text-white text-xs font-semibold hover:bg-[#001b27] transition-colors flex items-center gap-2">
                 <span className="material-symbols-outlined text-[18px]">visibility</span>Ver Contrato
-              </button>
-              <button className="px-6 py-2 rounded border border-[#E5E7EB] bg-white text-[#1a1c1d] text-xs font-semibold hover:bg-[#f4f3f5] transition-colors flex items-center gap-2">
-                <span className="material-symbols-outlined text-[18px]">upload_file</span>Subir Documento
               </button>
               <button className="px-6 py-2 rounded border border-[#E5E7EB] bg-white text-[#1a1c1d] text-xs font-semibold hover:bg-[#f4f3f5] transition-colors flex items-center gap-2 ml-auto">
                 <span className="material-symbols-outlined text-[18px]">mail</span>Enviar por Correo

@@ -38,12 +38,6 @@ const kpis = [
   { label: "Proyectos Activos",   val: 6,    trend: "estable", up: true, icon: "architecture",   bg: "#d1fae5", ic: "#065f46", spark: [60,60,65,60,65,65,65] },
 ];
 
-const alerts = [
-  { icon: "warning",            color: "#ba1a1a", bg: "#ffdad6", title: "3 separaciones expiran en 48h",     action: "Revisar", priority: "Crítico" },
-  { icon: "payments",           color: "#E65100", bg: "#FFF3E0", title: "Cliente JD no pagó 2da cuota",   action: "Seguimiento",  priority: "Alto"     },
-  { icon: "record_voice_over",  color: "#1565C0", bg: "#E3F2FD", title: "7 clientes VIP sin contactar 30 días", action: "Contactar",   priority: "Medio"   },
-];
-
 const activity = [
   { icon: "contract",       color: "#023143", bg: "#c2e8ff", text: "Contrato firmado — Torre A Apt 402",    who: "Juan Doe",      time: "10:30 AM" },
   { icon: "payments",       color: "#2E7D32", bg: "#E8F5E9", text: "Separación pagada — Los Pinos Lote 12", who: "Maria Smith",   time: "Ayer" },
@@ -72,9 +66,6 @@ export default function DashboardPage() {
           <p className="text-[14px] text-[#41484c] mt-1">Aquí tienes el resumen administrativo de hoy.</p>
         </div>
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 border border-[#e2e2e4] rounded-xl text-[13px] font-semibold text-[#41484c] hover:bg-[#f4f3f5] transition-colors">
-            <span className="material-symbols-outlined text-[17px]">download</span>Exportar
-          </button>
           <button className="flex items-center gap-2 px-4 py-2 bg-[#023143] text-white rounded-xl text-[13px] font-semibold hover:bg-[#001b27] transition-colors shadow-sm">
             <span className="material-symbols-outlined text-[17px]">add</span>Nuevo
           </button>
@@ -100,33 +91,6 @@ export default function DashboardPage() {
             <Spark values={k.spark} color={k.ic} />
           </div>
         ))}
-      </div>
-
-      {/* ── Intelligence Alerts ── */}
-      <div className="bg-[#001b27] rounded-2xl p-5 animate-slide-up delay-200">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="material-symbols-outlined text-[#c2e8ff] text-[18px]">psychology</span>
-          <span className="text-[11px] font-bold text-[#c2e8ff] uppercase tracking-widest">Alertas de Inteligencia</span>
-          <span className="ml-auto text-[10px] bg-[#ba1a1a] text-white font-bold px-2 py-0.5 rounded-full animate-pulse-soft">3 activas</span>
-        </div>
-        <div className="grid grid-cols-3 gap-3">
-          {alerts.map((a) => (
-            <div key={a.title} className="rounded-xl p-4 flex flex-col gap-2" style={{ background: a.bg + "22", border: `1px solid ${a.bg}44` }}>
-              <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center mt-0.5 shrink-0" style={{ background: a.bg }}>
-                  <span className="material-symbols-outlined text-[15px]" style={{ color: a.color }}>{a.icon}</span>
-                </div>
-                <p className="text-[12px] font-semibold text-white leading-snug">{a.title}</p>
-              </div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: a.bg + "44", color: a.bg }}>{a.priority}</span>
-                <button className="text-[11px] font-semibold text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                  {a.action} <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* ── Activity + Projects ── */}

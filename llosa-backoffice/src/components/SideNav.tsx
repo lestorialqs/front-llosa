@@ -7,7 +7,6 @@ type NavItem = {
   href: string;
   icon: string;
   label: string;
-  badge?: string; // ← optional: only "Tracking" has one
 };
 
 type NavGroup = {
@@ -16,6 +15,14 @@ type NavGroup = {
 };
 
 const groups: NavGroup[] = [
+  {
+    label: "Administración",
+    items: [
+      { href: "/employees",   icon: "badge",          label: "Empleados"  },
+      { href: "/permissions", icon: "lock_person",    label: "Permisos"},
+      { href: "/settings",    icon: "settings",       label: "Configuración"   },
+    ],
+  },
   {
     label: "Principal",
     items: [
@@ -27,25 +34,9 @@ const groups: NavGroup[] = [
   {
     label: "Operaciones",
     items: [
-      { href: "/contracts",   icon: "description",    label: "Contratos"  },
       { href: "/projects",    icon: "architecture",   label: "Proyectos"   },
       { href: "/schedule",    icon: "calendar_today", label: "Cronograma"   },
-      { href: "/templates",   icon: "article",        label: "Plantillas"  },
       { href: "/progress",    icon: "photo_library",  label: "Avances de Obra"   },
-    ],
-  },
-  {
-    label: "Inteligencia",
-    items: [
-      { href: "/tracking",    icon: "analytics",      label: "Seguimiento",  badge: "12" },
-    ],
-  },
-  {
-    label: "Administración",
-    items: [
-      { href: "/employees",   icon: "badge",          label: "Empleados"  },
-      { href: "/permissions", icon: "lock_person",    label: "Permisos"},
-      { href: "/settings",    icon: "settings",       label: "Configuración"   },
     ],
   },
 ];
@@ -79,7 +70,7 @@ export default function SideNav() {
           <div key={label}>
             <p className="px-3 mb-1.5 text-[10px] font-bold text-white/30 uppercase tracking-widest">{label}</p>
             <div className="space-y-0.5">
-              {items.map(({ href, icon, label: lbl, badge }) => {
+              {items.map(({ href, icon, label: lbl }) => {
                 const active = pathname.startsWith(href);
                 return (
                   <Link
@@ -95,11 +86,6 @@ export default function SideNav() {
                       {icon}
                     </span>
                     <span className="flex-1">{lbl}</span>
-                    {badge && (
-                      <span className="text-[10px] font-bold bg-[#ba1a1a] text-white rounded-full px-1.5 py-0.5 animate-pulse-soft">
-                        {badge}
-                      </span>
-                    )}
                   </Link>
                 );
               })}

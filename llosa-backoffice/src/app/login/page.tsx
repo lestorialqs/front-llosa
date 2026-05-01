@@ -39,18 +39,20 @@ export default function LoginPage() {
   const [pass, setPass]       = useState("");
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const [role, setRole]       = useState<"admin" | "employee">("admin");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      if (role === "admin") {
-        router.push("/admin/dashboard");
-      } else {
-        router.push("/employee/dashboard");
-      }
+      router.push("/admin/dashboard");
     }, 1400);
+  }
+
+  function handleGoogleLogin() {
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/admin/dashboard");
+    }, 900);
   }
 
   return (
@@ -117,31 +119,17 @@ export default function LoginPage() {
             <p className="text-[14px] text-[#72787c] mt-1">Inicia sesión en el Portal Backoffice</p>
           </div>
 
-          {/* Role Selector (Demo purpose) */}
-          <div className="flex p-1 bg-[#f4f3f5] rounded-xl mb-6">
-            <button
-              type="button"
-              onClick={() => setRole("admin")}
-              className={`flex-1 py-2 text-[12px] font-bold rounded-lg transition-all ${
-                role === "admin"
-                  ? "bg-white text-[#023143] shadow-sm"
-                  : "text-[#72787c] hover:text-[#1a1c1d]"
-              }`}
-            >
-              Administrador
-            </button>
-            <button
-              type="button"
-              onClick={() => setRole("employee")}
-              className={`flex-1 py-2 text-[12px] font-bold rounded-lg transition-all ${
-                role === "employee"
-                  ? "bg-white text-[#023143] shadow-sm"
-                  : "text-[#72787c] hover:text-[#1a1c1d]"
-              }`}
-            >
-              Empleado
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            className="w-full mb-4 py-3 border border-[#e2e2e4] rounded-xl text-[14px] font-semibold text-[#1a1c1d] hover:bg-[#f9f9fb] disabled:opacity-70 transition-all flex items-center justify-center gap-2"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.5 3.8-5.5 3.8-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.2.8 4 1.5l2.7-2.6C17 3.3 14.7 2.4 12 2.4 6.9 2.4 2.8 6.5 2.8 11.6s4.1 9.2 9.2 9.2c5.3 0 8.8-3.7 8.8-8.9 0-.6-.1-1.1-.2-1.7H12z"/>
+            </svg>
+            Acceder con Google
+          </button>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -7,17 +7,17 @@ type UpFile = { id: string; name: string; type: "photo"|"video"; preview: string
 type Status = "draft"|"ready"|"sent"|"viewed";
 
 const PROJECTS = ["Torre Aviana Residencial","Parque Sur","Edificio Central","Condominio Vista Mar"];
-const STAGES   = ["Foundation","Structure","Facades","Interior Finishes","Handover"];
-const CLIENTS  = [
-  { id:"cm", name:"Carlos Mendoza",       email:"c.mendoza@example.com",  initials:"CM", color:"bg-[#023143] text-white"         },
-  { id:"mr", name:"Maria Fernanda Rojas", email:"m.rojas@example.com",    initials:"MR", color:"bg-[#442605] text-[#ffdcbf]"    },
-  { id:"ld", name:"Luis Delgado Torres",  email:"l.delgado@example.com",  initials:"LD", color:"bg-[#c2e8ff] text-[#001b27]"    },
-  { id:"ev", name:"Elena Vargas Castro",  email:"e.vargas@example.com",   initials:"EV", color:"bg-[#e9e0e1] text-[#635d5e]"   },
+const STAGES   = ["Cimentación","Estructura","Fachadas","Acabados Interiores","Entrega"];
+const FLOORS  = [
+  { id:"p01", name:"Piso 01",       email:"proyecto-central@llosa.com",  initials:"01", color:"bg-[#023143] text-white"         },
+  { id:"p02", name:"Piso 02",       email:"proyecto-central@llosa.com",  initials:"02", color:"bg-[#442605] text-[#ffdcbf]"    },
+  { id:"p03", name:"Piso 03",       email:"proyecto-central@llosa.com",  initials:"03", color:"bg-[#c2e8ff] text-[#001b27]"    },
+  { id:"p04", name:"Piso 04",       email:"proyecto-central@llosa.com",  initials:"04", color:"bg-[#e9e0e1] text-[#635d5e]"   },
 ];
 const HISTORY: {id:number;title:string;project:string;status:Status;photos:number;vids:number;date:string}[] = [
-  { id:1, title:"Torre Aviana – Week 14",      project:"Torre Aviana",   status:"viewed", photos:3, vids:0, date:"Oct 20" },
-  { id:2, title:"Parque Sur – Floor 5 Finish", project:"Parque Sur",     status:"sent",   photos:5, vids:1, date:"Oct 18" },
-  { id:3, title:"Edificio Central – Facade",   project:"Edificio Central",status:"draft", photos:2, vids:0, date:"Oct 15" },
+  { id:1, title:"Torre Aviana – Semana 14",      project:"Torre Aviana",   status:"viewed", photos:3, vids:0, date:"20 Oct" },
+  { id:2, title:"Parque Sur – Acabado Piso 5", project:"Parque Sur",     status:"sent",   photos:5, vids:1, date:"18 Oct" },
+  { id:3, title:"Edificio Central – Fachada",   project:"Edificio Central",status:"draft", photos:2, vids:0, date:"15 Oct" },
 ];
 const STATUS_STYLE: Record<Status,string> = {
   draft:"bg-[#e2e2e4] text-[#41484c]",
@@ -89,16 +89,16 @@ export default function ProgressPage() {
             <div className="w-20 h-20 rounded-full bg-[#E8F5E9] flex items-center justify-center mx-auto mb-5">
               <span className="material-symbols-outlined text-[44px] text-[#2E7D32]">check_circle</span>
             </div>
-            <h2 className="text-[24px] font-bold text-[#1a1c1d] mb-2">Update Sent!</h2>
-            <p className="text-[13px] text-[#41484c] mb-1"><strong>"{title}"</strong> was delivered to {clients.length} client(s).</p>
-            <p className="text-[12px] text-[#72787c] mb-8">{sendEmail?"Email notification sent.":"No email was sent."}</p>
+            <h2 className="text-[24px] font-bold text-[#1a1c1d] mb-2">¡Actualización Enviada!</h2>
+            <p className="text-[13px] text-[#41484c] mb-1"><strong>"{title}"</strong> fue entregada a {clients.length} piso(s).</p>
+            <p className="text-[12px] text-[#72787c] mb-8">{sendEmail?"Notificación por correo enviada.":"No se envió correo."}</p>
             <div className="flex gap-3 justify-center">
               <button onClick={()=>{setSent(false);setFiles([]);setTitle("");setDesc("");setProject("");setStage("");setClients([]);}}
                 className="px-5 py-2.5 bg-[#023143] text-white rounded-xl text-[13px] font-semibold hover:bg-[#001b27] transition-colors">
-                New Update
+                Nueva Actualización
               </button>
               <button className="px-5 py-2.5 border border-[#e2e2e4] rounded-xl text-[13px] font-semibold text-[#41484c] hover:bg-[#f4f3f5] transition-colors">
-                View History
+                Ver Historial
               </button>
             </div>
           </div>
@@ -113,23 +113,23 @@ export default function ProgressPage() {
       <div className="flex justify-between items-start animate-slide-up">
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="text-[28px] font-bold tracking-tight text-[#1a1c1d]">Visual Progress Update</h2>
-            <p className="text-[13px] text-[#41484c] mt-0.5">Build a professional update report and send it to your clients.</p>
+            <h2 className="text-[28px] font-bold tracking-tight text-[#1a1c1d]">Actualización Visual de Progreso por Piso</h2>
+            <p className="text-[13px] text-[#41484c] mt-0.5">Crea un reporte de obra y envíalo por proyecto y por piso.</p>
           </div>
-          {ready && <span className="px-2.5 py-1 bg-[#FFF3E0] text-[#E65100] text-[10px] font-bold rounded-full uppercase tracking-wider animate-scale-in">Ready to send</span>}
+          {ready && <span className="px-2.5 py-1 bg-[#FFF3E0] text-[#E65100] text-[10px] font-bold rounded-full uppercase tracking-wider animate-scale-in">Listo para enviar</span>}
         </div>
         <div className="flex gap-3">
           <button className="px-4 py-2 border border-[#e2e2e4] rounded-xl text-[13px] font-semibold text-[#41484c] hover:bg-[#f4f3f5] transition-colors flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-[17px]">save</span>Save draft
+            <span className="material-symbols-outlined text-[17px]">save</span>Guardar borrador
           </button>
           {ready && (
             <button onClick={()=>setShowPreview(true)} className="px-4 py-2 border border-[#023143] text-[#023143] rounded-xl text-[13px] font-semibold hover:bg-[#c2e8ff]/30 transition-colors flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[17px]">visibility</span>Preview
+              <span className="material-symbols-outlined text-[17px]">visibility</span>Vista previa
             </button>
           )}
           <button onClick={()=>ready&&setShowConfirm(true)} disabled={!ready}
             className="px-5 py-2 bg-[#023143] text-white rounded-xl text-[13px] font-semibold disabled:opacity-40 hover:bg-[#001b27] transition-colors flex items-center gap-1.5 shadow-sm">
-            <span className="material-symbols-outlined text-[17px]">send</span>Send to client
+            <span className="material-symbols-outlined text-[17px]">send</span>Enviar por piso
           </button>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function ProgressPage() {
         {/* Past updates */}
         <div className="col-span-3 card overflow-hidden self-start">
           <div className="px-4 py-3 border-b border-[#e2e2e4] bg-[#f9f9fb]">
-            <p className="text-[12px] font-bold text-[#1a1c1d]">Update History</p>
+            <p className="text-[12px] font-bold text-[#1a1c1d]">Historial de Actualizaciones</p>
           </div>
           <div className="divide-y divide-[#e2e2e4]">
             {HISTORY.map(h=>(
@@ -164,20 +164,20 @@ export default function ProgressPage() {
           {/* Info */}
           <div className="card p-5 space-y-4">
             <h3 className="text-[13px] font-bold text-[#1a1c1d] flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px] text-[#3d6377]">edit_note</span>Update Details
+              <span className="material-symbols-outlined text-[16px] text-[#3d6377]">edit_note</span>Detalles de Actualización
             </h3>
-            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Update title *"
+            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Título de la actualización *"
               className="w-full border border-[#e2e2e4] rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-[#023143] focus:ring-2 focus:ring-[#023143]/10 transition-all"/>
-            <textarea value={desc} onChange={e=>setDesc(e.target.value)} rows={2} placeholder="Brief description of this progress update…"
+            <textarea value={desc} onChange={e=>setDesc(e.target.value)} rows={2} placeholder="Breve descripción de esta actualización de progreso..."
               className="w-full border border-[#e2e2e4] rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-[#023143] focus:ring-2 focus:ring-[#023143]/10 transition-all resize-none"/>
             <div className="grid grid-cols-2 gap-3">
-              {[[project,setProject,PROJECTS,"Project *"],[stage,setStage,STAGES,"Stage / Milestone"]].map(([val,setter,opts,label])=>(
+              {[[project,setProject,PROJECTS,"Proyecto *"],[stage,setStage,STAGES,"Etapa / Hito"]].map(([val,setter,opts,label])=>(
                 <div key={label as string}>
                   <label className="text-[10px] font-bold text-[#72787c] uppercase tracking-wider block mb-1">{label as string}</label>
                   <div className="relative">
                     <select value={val as string} onChange={e=>(setter as (v:string)=>void)(e.target.value)}
                       className="w-full appearance-none border border-[#e2e2e4] rounded-xl px-3 py-2.5 pr-8 text-[13px] bg-white focus:outline-none focus:border-[#023143]">
-                      <option value="">Select…</option>
+                      <option value="">Seleccionar...</option>
                       {(opts as string[]).map(o=><option key={o}>{o}</option>)}
                     </select>
                     <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[#72787c] text-[16px] pointer-events-none">expand_more</span>
@@ -191,8 +191,8 @@ export default function ProgressPage() {
           <div className="card p-5 space-y-4">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-[16px] text-[#3d6377]">photo_library</span>
-              <h3 className="text-[13px] font-bold text-[#1a1c1d]">Media Files</h3>
-              {files.length>0 && <span className="ml-auto text-[11px] text-[#72787c]">{photos.length} photos · {videos.length} videos</span>}
+              <h3 className="text-[13px] font-bold text-[#1a1c1d]">Archivos Multimedia</h3>
+              {files.length>0 && <span className="ml-auto text-[11px] text-[#72787c]">{photos.length} fotos · {videos.length} videos</span>}
             </div>
 
             {/* Drop zone */}
@@ -202,8 +202,8 @@ export default function ProgressPage() {
               className={`border-2 border-dashed rounded-2xl py-8 px-4 text-center cursor-pointer transition-all duration-200 ${drag?"border-[#023143] bg-[#c2e8ff]/20 scale-[1.01]":"border-[#e2e2e4] hover:border-[#023143]/40 hover:bg-[#f9f9fb]"}`}>
               <input ref={inputRef} type="file" multiple accept="image/*,video/*" className="hidden" onChange={e=>addFiles(e.target.files)}/>
               <span className={`material-symbols-outlined text-[44px] mb-2 block transition-colors ${drag?"text-[#023143]":"text-[#c1c7cc]"}`}>cloud_upload</span>
-              <p className="text-[13px] font-semibold text-[#1a1c1d]">{drag?"Drop here":"Drag & drop photos and videos"}</p>
-              <p className="text-[11px] text-[#72787c] mt-0.5">or click to browse · JPG, PNG, MP4, MOV</p>
+              <p className="text-[13px] font-semibold text-[#1a1c1d]">{drag?"Suelta aquí":"Arrastra y suelta fotos y videos"}</p>
+              <p className="text-[11px] text-[#72787c] mt-0.5">o haz clic para buscar · JPG, PNG, MP4, MOV</p>
             </div>
 
             {/* Gallery */}
@@ -213,7 +213,7 @@ export default function ProgressPage() {
                   {(["all","photo","video"] as const).map(t=>(
                     <button key={t} onClick={()=>setTab(t)}
                       className={`px-3 py-1 rounded-md text-[11px] font-semibold transition-all ${tab===t?"bg-white text-[#1a1c1d] shadow-sm":"text-[#72787c] hover:text-[#1a1c1d]"}`}>
-                      {t==="all"?`All (${files.length})`:t==="photo"?`Photos (${photos.length})`:`Videos (${videos.length})`}
+                      {t==="all"?`Todos (${files.length})`:t==="photo"?`Fotos (${photos.length})`:`Videos (${videos.length})`}
                     </button>
                   ))}
                 </div>
@@ -254,9 +254,15 @@ export default function ProgressPage() {
         <div className="col-span-3 space-y-4">
           <div className="card p-5 space-y-3">
             <h3 className="text-[13px] font-bold text-[#1a1c1d] flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px] text-[#3d6377]">group</span>Recipients *
+              <span className="material-symbols-outlined text-[16px] text-[#3d6377]">apartment</span>Pisos destinatarios *
             </h3>
-            {CLIENTS.map(c=>(
+            <button
+              onClick={() => setClients(clients.length === FLOORS.length ? [] : FLOORS.map((f) => f.id))}
+              className="w-full text-left px-3 py-2 rounded-lg border border-[#c1c7cc] text-[11px] font-semibold text-[#023143] hover:bg-[#f4f3f5]"
+            >
+              Marcar todos
+            </button>
+            {FLOORS.map(c=>(
               <button key={c.id} onClick={()=>setClients(prev=>prev.includes(c.id)?prev.filter(x=>x!==c.id):[...prev,c.id])}
                 className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl border transition-all ${clients.includes(c.id)?"border-[#023143] bg-[#c2e8ff]/20":"border-[#e2e2e4] hover:border-[#023143]/30"}`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${c.color}`}>{c.initials}</div>
@@ -269,7 +275,7 @@ export default function ProgressPage() {
                 </div>
               </button>
             ))}
-            {clients.length>0 && <p className="text-[11px] text-[#3d6377] font-semibold pt-1">{clients.length} recipient(s) selected</p>}
+            {clients.length>0 && <p className="text-[11px] text-[#3d6377] font-semibold pt-1">{clients.length} piso(s) seleccionado(s)</p>}
           </div>
 
           {/* Email toggle */}
@@ -277,26 +283,26 @@ export default function ProgressPage() {
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px] text-[#3d6377]">mail</span>
-                <span className="text-[13px] font-bold text-[#1a1c1d]">Email Notification</span>
+                <span className="text-[13px] font-bold text-[#1a1c1d]">Notificación por Correo</span>
               </div>
               <Toggle on={sendEmail} onChange={()=>setSendEmail(!sendEmail)}/>
             </div>
-            <p className="text-[11px] text-[#72787c]">{sendEmail?"An email will be sent to selected clients.":"No email will be sent."}</p>
+            <p className="text-[11px] text-[#72787c]">{sendEmail?"Se enviará un correo al equipo del proyecto por cada piso seleccionado.":"No se enviará ningún correo."}</p>
           </div>
 
           {/* Summary */}
           {ready && (
             <div className="card p-5 border-[#023143]/30 bg-[#c2e8ff]/10 animate-scale-in">
               <p className="text-[12px] font-bold text-[#023143] mb-3 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[15px]">checklist</span>Summary
+                <span className="material-symbols-outlined text-[15px]">checklist</span>Resumen
               </p>
               <div className="space-y-1.5 text-[11px] text-[#41484c]">
-                <p><span className="font-semibold text-[#1a1c1d]">Title:</span> {title}</p>
-                <p><span className="font-semibold text-[#1a1c1d]">Project:</span> {project}</p>
-                {stage && <p><span className="font-semibold text-[#1a1c1d]">Stage:</span> {stage}</p>}
-                <p><span className="font-semibold text-[#1a1c1d]">Files:</span> {photos.filter(f=>f.done).length} photos, {videos.filter(f=>f.done).length} videos</p>
-                <p><span className="font-semibold text-[#1a1c1d]">Recipients:</span> {clients.length}</p>
-                <p><span className="font-semibold text-[#1a1c1d]">Email:</span> {sendEmail?"Yes":"No"}</p>
+                <p><span className="font-semibold text-[#1a1c1d]">Título:</span> {title}</p>
+                <p><span className="font-semibold text-[#1a1c1d]">Proyecto:</span> {project}</p>
+                {stage && <p><span className="font-semibold text-[#1a1c1d]">Etapa:</span> {stage}</p>}
+                <p><span className="font-semibold text-[#1a1c1d]">Archivos:</span> {photos.filter(f=>f.done).length} fotos, {videos.filter(f=>f.done).length} videos</p>
+                <p><span className="font-semibold text-[#1a1c1d]">Destinatarios:</span> {clients.length}</p>
+                <p><span className="font-semibold text-[#1a1c1d]">Correo:</span> {sendEmail?"Sí":"No"}</p>
               </div>
             </div>
           )}
@@ -309,8 +315,8 @@ export default function ProgressPage() {
           <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl" onClick={e=>e.stopPropagation()}>
             <div className="p-6 border-b border-[#e2e2e4] flex items-center justify-between bg-[#f9f9fb] rounded-t-2xl">
               <div>
-                <p className="text-[10px] font-bold text-[#72787c] uppercase tracking-wider mb-1">Client Preview</p>
-                <h3 className="text-[18px] font-bold text-[#1a1c1d]">{title||"Untitled Update"}</h3>
+                <p className="text-[10px] font-bold text-[#72787c] uppercase tracking-wider mb-1">Vista Previa del Cliente</p>
+                <h3 className="text-[18px] font-bold text-[#1a1c1d]">{title||"Actualización sin título"}</h3>
                 <p className="text-[12px] text-[#72787c] mt-0.5">{project}{stage?" · "+stage:""}</p>
               </div>
               <button onClick={()=>setShowPreview(false)} className="w-8 h-8 flex items-center justify-center rounded-lg text-[#72787c] hover:bg-[#e2e2e4] transition-colors">
@@ -321,7 +327,7 @@ export default function ProgressPage() {
               {desc && <p className="text-[13px] text-[#41484c] leading-relaxed bg-[#f9f9fb] rounded-xl p-4">{desc}</p>}
               {files.filter(f=>f.done).length>0 && (
                 <div>
-                  <p className="text-[11px] font-bold text-[#72787c] uppercase tracking-wider mb-3">Attachments</p>
+                  <p className="text-[11px] font-bold text-[#72787c] uppercase tracking-wider mb-3">Adjuntos</p>
                   <div className="grid grid-cols-3 gap-3">
                     {files.filter(f=>f.done).map(f=>(
                       <div key={f.id} className="aspect-square rounded-xl overflow-hidden bg-[#f4f3f5] border border-[#e2e2e4]">
@@ -339,7 +345,7 @@ export default function ProgressPage() {
               )}
               <div className="flex items-center gap-2 pt-2 border-t border-[#e2e2e4]">
                 <span className="material-symbols-outlined text-[#72787c] text-[16px]">lock</span>
-                <p className="text-[11px] text-[#72787c]">Clients can view these files but cannot edit or download them.</p>
+                <p className="text-[11px] text-[#72787c]">Los clientes pueden ver estos archivos pero no pueden editarlos ni descargarlos.</p>
               </div>
             </div>
           </div>
@@ -353,14 +359,14 @@ export default function ProgressPage() {
             <div className="w-12 h-12 rounded-full bg-[#c2e8ff] flex items-center justify-center mx-auto mb-4">
               <span className="material-symbols-outlined text-[#023143] text-[24px]">send</span>
             </div>
-            <h3 className="text-[18px] font-bold text-[#1a1c1d] text-center mb-1">Send Update?</h3>
+            <h3 className="text-[18px] font-bold text-[#1a1c1d] text-center mb-1">¿Enviar Actualización?</h3>
             <p className="text-[13px] text-[#41484c] text-center mb-5">
-              <strong>"{title}"</strong> will be sent to <strong>{clients.length}</strong> client(s).
-              {sendEmail?" An email notification will also be delivered.":""}
+              <strong>"{title}"</strong> será enviada a <strong>{clients.length}</strong> piso(s).
+              {sendEmail?" También se enviará una notificación por correo.":""}
             </p>
             <div className="flex gap-3">
-              <button onClick={()=>setShowConfirm(false)} className="flex-1 py-2.5 border border-[#e2e2e4] rounded-xl text-[13px] font-semibold text-[#41484c] hover:bg-[#f4f3f5] transition-colors">Cancel</button>
-              <button onClick={()=>{setShowConfirm(false);setSent(true);}} className="flex-1 py-2.5 bg-[#023143] text-white rounded-xl text-[13px] font-semibold hover:bg-[#001b27] transition-colors">Confirm & Send</button>
+              <button onClick={()=>setShowConfirm(false)} className="flex-1 py-2.5 border border-[#e2e2e4] rounded-xl text-[13px] font-semibold text-[#41484c] hover:bg-[#f4f3f5] transition-colors">Cancelar</button>
+              <button onClick={()=>{setShowConfirm(false);setSent(true);}} className="flex-1 py-2.5 bg-[#023143] text-white rounded-xl text-[13px] font-semibold hover:bg-[#001b27] transition-colors">Confirmar y Enviar</button>
             </div>
           </div>
         </div>
